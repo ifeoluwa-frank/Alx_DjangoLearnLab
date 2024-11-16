@@ -13,6 +13,14 @@ class Book(models.Model):
     isbn = models.CharField(max_length=13, default='Unknown')  # default value added here
     summary = models.TextField()
 
+    class Meta:
+        permissions = [
+            ('can_view', 'Can view book'),
+            ('can_create', 'Can create book'),
+            ('can_edit', 'Can edit book'),
+            ('can_delete', 'Can delete book'),
+        ]
+
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
@@ -28,11 +36,15 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault("is_superuser", True)
         return self.create_user(username, password, **extra_fields)
 
+# class CustomUser(AbstractUser):
+#     date_of_birth = models.DateField(null=True, blank=True)
+#     profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
+
+#     objects = CustomUserManager()
+
 class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
-
-    objects = CustomUserManager()
 
 # SomeModel linked to CustomUser
 class SomeModel(models.Model):
