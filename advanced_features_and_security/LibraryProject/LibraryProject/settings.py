@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jo+r%+gpz*h6&0@dzp3a!m-*!a2j$2s&z8e5y_enhjako_q&3c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -49,7 +49,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", 'https://trusted-cdn.com')
+CSP_STYLE_SRC = ("'self'", 'https://trusted-cdn.com')
+CSP_IMG_SRC = ("'self'", 'https://trusted-cdn.com')
 
 ROOT_URLCONF = 'LibraryProject.urls'
 
@@ -134,3 +140,21 @@ LOGIN_URL = 'login'
 # Redirect the user to a specific page after login
 LOGIN_REDIRECT_URL = 'list_books'  # Change as needed
 LOGOUT_REDIRECT_URL = 'login' 
+
+# Prevents browsers from interpreting files as something else (e.g., scripts)
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# XSS filtering. This helps prevent reflected XSS attacks.
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevents the page from being embedded in a frame, protecting against clickjacking attacks
+X_FRAME_OPTIONS = 'DENY'  # or 'SAMEORIGIN' to allow embedding in the same domain only
+
+# Ensure cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# HTTP Strict Transport Security (HSTS), ensuring the site can only be accessed via HTTPS
+SECURE_HSTS_SECONDS = 3600  # Enable HTTP Strict Transport Security for 1 hour (3600 seconds)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+SECURE_HSTS_PRELOAD = True  # Preload HSTS for browsers that support it
