@@ -9,3 +9,8 @@ class BookForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # You can add any custom field modifications here, such as adding widgets
+
+class ExampleForm(forms.Form):
+    title = forms.CharField(max_length=100, required=True)
+    author = forms.CharField(max_length=100, required=True)
+    description = forms.CharField(widget=forms.Textarea, required=False)
