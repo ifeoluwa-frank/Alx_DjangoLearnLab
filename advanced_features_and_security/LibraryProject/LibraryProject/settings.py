@@ -162,3 +162,9 @@ SECURE_HSTS_PRELOAD = True  # Preload HSTS for browsers that support it
 # settings.py
 SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
 
+# settings.py
+
+# This setting tells Django to trust the `X-Forwarded-Proto` header from the proxy
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
