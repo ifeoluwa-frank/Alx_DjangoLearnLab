@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Post, Comment
 from taggit.forms import TagWidget 
+from django.forms import widgets
+
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, help_text="Required. Provide a valid email address.")
