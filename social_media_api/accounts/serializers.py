@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
-    bio = serializers.CharField(required=False, allow_blank=True)  # Uses `serializers.CharField`
+    bio = serializers.CharField(required=False, allow_blank=True)  # Explicit usage of `serializers.CharField`
     profile_picture = serializers.ImageField(required=False)
 
     class Meta:
@@ -13,6 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'bio', 'profile_picture']
 
 class RegisterSerializer(serializers.ModelSerializer):
+    username = serializers.CharField()  # Explicitly added `serializers.CharField`
     password = serializers.CharField(write_only=True)  # Explicitly uses `serializers.CharField`
 
     class Meta:
